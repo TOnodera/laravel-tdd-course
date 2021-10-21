@@ -48,7 +48,8 @@
 		"neilbrayfield.php-docblocker",
 		"onecentlin.laravel5-snippets",
 		"ryannaddy.laravel-artisan",
-		"mhutchie.git-graph"
+		"mhutchie.git-graph",
+		"calebporzio.better-phpunit"
 	],
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
