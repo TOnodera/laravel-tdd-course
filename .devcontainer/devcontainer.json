@@ -19,9 +19,8 @@
 	// Set *default* container specific settings.json values on container create.
 	"settings": {
 		"terminal.integrated.shell.linux": "/bin/bash",
-		"editor.defaultFormatter": "esbenp.prettier-vscode",
-    	"[javascript]": {
-      		"editor.defaultFormatter": "esbenp.prettier-vscode"
+    	"[php]": {
+      		"editor.defaultFormatter": "junstyle.php-cs-fixer"
     	},
 		//インテリセンス
 		"php.executablePath": "/usr/local/bin/php",

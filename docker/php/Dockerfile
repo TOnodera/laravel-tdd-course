@@ -13,9 +13,11 @@ RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - \
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=2.0.13
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
+
 RUN usermod -u 1000 -o www-data
 WORKDIR /var/www
 RUN chown -R www-data:www-data /var/www
 
-WORKDIR /home/www-data/workspace
-RUN chown -R www-data:www-data /home/www-data/workspace
+WORKDIR /home/www-data/app
+ENV PATH "$PATH:/home/www-data/app/laravel/vendor/bin"
+RUN chown -R www-data:www-data /home/www-data/app
