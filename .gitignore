@@ -1,0 +1,4 @@
+.history
+docker/mysql/data
+.env
+node_modules
