@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Blog;
 use App\Models\Comment;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -22,7 +23,9 @@ class CommentFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'blog_id' => Blog::factory(),
+            'name' => $this->faker->name,
+            'body' => $this->faker->realText(20)
         ];
     }
 }
