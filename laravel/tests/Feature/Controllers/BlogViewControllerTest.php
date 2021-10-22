@@ -19,9 +19,8 @@ final class BlogViewControllerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->withoutExceptionHandling();
     }
-
+    
     public function testブログのTOPページを開ける()
     {
         $blog1 = Blog::factory()->hasComments(1)->create();
@@ -46,7 +45,7 @@ final class BlogViewControllerTest extends TestCase
 
     public function testブログの一覧、非公開のブログは表示されない()
     {
-        Blog::factory()->create(['status' => Blog::CLOSED, 'title' => 'ブログA']);
+        Blog::factory()->closed()->create(['title' => 'ブログA']);
         Blog::factory()->create(['title' => 'ブログB']);
         Blog::factory()->create(['title' => 'ブログC']);
 
@@ -60,9 +59,18 @@ final class BlogViewControllerTest extends TestCase
 
     public function testブログの詳細画面を表示出来る()
     {
+        $blog = Blog::factory()->create();
+
+        $this->get('blogs/'.$blog->id)
+            ->assertOk()
+            ->assertSee($blog->title)
+            ->assertSee($blog->user->name);
     }
 
     public function testブログで非公開のものは、詳細画面は表示できない()
     {
+        $blog = Blog::factory()->closed()->create();
+        $this->get('blogs/'.$blog->id)
+            ->assertForbidden();
     }
 }

@@ -18,6 +18,12 @@ final class BlogTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->withoutExceptionHandling();
+    }
+
     public function testUserリレーションを返す()
     {
         $blog = Blog::factory()->create();
@@ -32,7 +38,7 @@ final class BlogTest extends TestCase
 
     public function testブログの公開非公開のスコープ()
     {
-        $blog1 = Blog::factory()->create(['status' => Blog::CLOSED, 'title' => 'ブログA']);
+        $blog1 = Blog::factory()->closed()->create(['title' => 'ブログA']);
         $blog2 = Blog::factory()->create(['title' => 'ブログB']);
         $blog3 = Blog::factory()->create(['title' => 'ブログC']);
 
