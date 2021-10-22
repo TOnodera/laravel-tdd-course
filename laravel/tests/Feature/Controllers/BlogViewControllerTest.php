@@ -24,9 +24,9 @@ class BlogViewControllerTest extends TestCase
      */
     public function testブログのTOPページを開ける()
     {
-        $blog1 = Blog::factory()->create();
-        $blog2 = Blog::factory()->create();
-        $blog3 = Blog::factory()->create();
+        $blog1 = Blog::factory()->hasComments(1)->create();
+        $blog2 = Blog::factory()->hasComments(3)->create();
+        $blog3 = Blog::factory()->hasComments(2)->create();
 
         $this->get('/')
             ->assertOk()
@@ -36,6 +36,10 @@ class BlogViewControllerTest extends TestCase
             ->assertSee($blog3->title)
             ->assertSee($blog1->user->name)
             ->assertSee($blog2->user->name)
-            ->assertSee($blog3->user->name);
+            ->assertSee($blog3->user->name)
+            ->assertSee("(1件のコメント)")
+            ->assertSee("(3件のコメント)")
+            ->assertSee("(2件のコメント)")
+            ->assertSeeInOrder([$blog2->title,$blog3->title,$blog1->title]);
     }
 }
