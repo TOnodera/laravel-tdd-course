@@ -8,6 +8,12 @@ use Tests\TestCase;
 
 class BlogViewControllerTest extends TestCase
 {
+    protected function setUp(): void
+    {
+        parent::setUp();
+        $this->withoutExceptionHandling();
+    }
+
     /**
      *
      *
@@ -15,8 +21,6 @@ class BlogViewControllerTest extends TestCase
      */
     public function testブログのTOPページを開ける()
     {
-        $this->withoutExceptionHandling();
-        $response = $this->get('/');
-        $response->assertOk();
+        $this->get('/')->assertOk();
     }
 }
