@@ -55,6 +55,9 @@
         ],
         "pf":[
             "phpunit --filter"
+        ],
+        "format":[
+            "php-cs-fixer fix"
         ]
     },
     "extra": {
