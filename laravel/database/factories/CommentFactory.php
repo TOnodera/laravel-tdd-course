@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Database\Factories;
 
@@ -25,7 +27,7 @@ class CommentFactory extends Factory
         return [
             'blog_id' => Blog::factory(),
             'name' => $this->faker->name,
-            'body' => $this->faker->realText(20)
+            'body' => $this->faker->realText(20),
         ];
     }
 }

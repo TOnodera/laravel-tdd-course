@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Models;
 
@@ -9,14 +11,14 @@ class Blog extends Model
 {
     use HasFactory;
 
-    const OPEN = 1;
-    const CLOSED = 0;
+    public const OPEN = 1;
+    public const CLOSED = 0;
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-    
+
     public function comments()
     {
         return $this->hasMany(Comment::class);

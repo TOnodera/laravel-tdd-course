@@ -57,7 +57,7 @@
             "phpunit --filter"
         ],
         "format":[
-            "php-cs-fixer fix"
+            "php-cs-fixer fix --config=./.php-cs-fixer.dist.php"
         ]
     },
     "extra": {

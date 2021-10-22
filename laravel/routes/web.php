@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 use App\Http\Controllers\BlogViewController;
 use Illuminate\Support\Facades\Route;
@@ -14,5 +16,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
-Route::get('/', [BlogViewController::class,'index']);
+Route::get('/', [BlogViewController::class, 'index']);

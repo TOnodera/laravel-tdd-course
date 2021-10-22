@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace Database\Factories;
 
@@ -23,10 +25,10 @@ class BlogFactory extends Factory
     public function definition()
     {
         return [
-            "user_id" => User::factory(),
-            "status"=> Blog::OPEN,
-            "title" => $this->faker->realText(20),
-            'body' => $this->faker->realText(100)
+            'user_id' => User::factory(),
+            'status' => Blog::OPEN,
+            'title' => $this->faker->realText(20),
+            'body' => $this->faker->realText(100),
         ];
     }
 
@@ -34,7 +36,7 @@ class BlogFactory extends Factory
     {
         return $this->state(function (array $attributes) {
             return [
-                'status'=>$this->faker->biasedNumberBetween(0, 1, ['\Faker\Provider\Biased','linearHigh'])
+                'status' => $this->faker->biasedNumberBetween(0, 1, ['\Faker\Provider\Biased', 'linearHigh']),
             ];
         });
     }

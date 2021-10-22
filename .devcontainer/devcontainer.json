@@ -22,19 +22,10 @@
     	"[php]": {
       		"editor.defaultFormatter": "junstyle.php-cs-fixer"
     	},
-		//インテリセンス
 		"php.executablePath": "/usr/local/bin/php",
-		//名前解決系
-		"namespaceResolver.exclude": "{**/node_modules/**}",
-		"namespaceResolver.showMessageOnStatusBar": true,  // Show message on status bar instead of notification box
-		"namespaceResolver.autoSort": true,                 // Auto sort after imports
-		"namespaceResolver.sortOnSave": true,              // Auto sort when a file is saved
-		"namespaceResolver.sortAlphabetically": true,      // Sort imports in alphabetical order instead of line length
-		"namespaceResolver.leadingSeparator": true,         // Expand class with leading namespace separator
-		"namespaceResolver.highlightOnSave": false,         // Auto highlight not imported and not used when a file is saved
-		"namespaceResolver.highlightOnOpen": false,         // Auto highlight not imported and not used when a file is opened,
-		//コードフォーマット
-		"php-cs-fixer.onsave": true
+		"php-cs-fixer.onsave": true,
+		"php-cs-fixer.executablePath": "/home/www-data/app/laravel/vendor/bin/php-cs-fixer",
+		"php-cs-fixer.configFile": "/home/www-data/app/laravel/.php-cs-fixer.dist.php"
 	},
 
 	// Add the IDs of extensions you want installed when the container is created.
