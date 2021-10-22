@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Tests\Unit\Models;
 
@@ -12,18 +12,18 @@ class BlogTest extends TestCase
 {
     use RefreshDatabase;
     /**
-     * @test
+     *
      */
-    public function userリレーションを返す()
+    public function testUserリレーションを返す()
     {
         $blog = Blog::factory()->create();
         $this->assertInstanceOf(User::class, $blog->user);
     }
 
     /**
-     * @test
+     *
      */
-    public function commentsレリーションを返す()
+    public function testCommentsレリーションを返す()
     {
         $blog = Blog::factory()->create();
         $this->assertInstanceOf(Collection::class, $blog->comments);
