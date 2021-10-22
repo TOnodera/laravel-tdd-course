@@ -57,4 +57,12 @@ final class BlogViewControllerTest extends TestCase
             ->assertSee('ブログC')
         ;
     }
+
+    public function testブログの詳細画面を表示出来る()
+    {
+    }
+
+    public function testブログで非公開のものは、詳細画面は表示できない()
+    {
+    }
 }

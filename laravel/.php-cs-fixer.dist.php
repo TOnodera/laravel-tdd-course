@@ -18,5 +18,6 @@ return $config
         '@PSR2' => true,
         '@PhpCsFixer' => true,
         '@PhpCsFixer:risky' => true,
+        'declare_strict_types' => true,
     ])
     ->setFinder($finder);
