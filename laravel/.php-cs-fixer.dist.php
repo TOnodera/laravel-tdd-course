@@ -37,5 +37,6 @@ return $config
         ],
         'not_operator_with_successor_space' => true,
         'blank_line_after_namespace' => true,
+        'semicolon_after_instruction' => true
     ])
     ->setFinder($finder);

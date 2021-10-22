@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace Database\Factories;
 
@@ -22,7 +22,8 @@ class BlogFactory extends Factory
     public function definition()
     {
         return [
-            //
+            "title" => $this->faker->realText(20),
+            'body' => $this->faker->realText(100)
         ];
     }
 }
