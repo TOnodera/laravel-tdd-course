@@ -24,8 +24,18 @@ class BlogFactory extends Factory
     {
         return [
             "user_id" => User::factory(),
+            "status"=> Blog::OPEN,
             "title" => $this->faker->realText(20),
             'body' => $this->faker->realText(100)
         ];
+    }
+
+    public function seeding()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'status'=>$this->faker->biasedNumberBetween(0, 1, ['\Faker\Provider\Biased','linearHigh'])
+            ];
+        });
     }
 }

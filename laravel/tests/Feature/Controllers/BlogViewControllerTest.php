@@ -18,9 +18,7 @@ class BlogViewControllerTest extends TestCase
     }
 
     /**
-     *
-     *
-     * @return void
+     * @test
      */
     public function testブログのTOPページを開ける()
     {
@@ -41,5 +39,21 @@ class BlogViewControllerTest extends TestCase
             ->assertSee("(3件のコメント)")
             ->assertSee("(2件のコメント)")
             ->assertSeeInOrder([$blog2->title,$blog3->title,$blog1->title]);
+    }
+
+    /**
+     * @test
+     */
+    public function testブログの一覧、非公開のブログは表示されない()
+    {
+        Blog::factory()->create(['status'=>Blog::CLOSED,'title'=>'ブログA']);
+        Blog::factory()->create(['title'=>'ブログB']);
+        Blog::factory()->create(['title'=>'ブログC']);
+
+        $this->get('/')
+            ->assertOk()
+            ->assertDontSee('ブログA')
+            ->assertSee('ブログB')
+            ->assertSee('ブログC');
     }
 }
