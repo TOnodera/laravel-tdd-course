@@ -18,7 +18,7 @@ final class BlogTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->withoutExceptionHandling();
@@ -51,9 +51,9 @@ final class BlogTest extends TestCase
     public function ブログで非公開時はtrue、公開時はfalseを返す()
     {
         $blog = Blog::factory()->make();
-        $this->assertFalse($blog->isClosed());
+        static::assertFalse($blog->isClosed());
 
         $blog = Blog::factory()->closed()->make();
-        $this->assertTrue($blog->isClosed());
+        static::assertTrue($blog->isClosed());
     }
 }
