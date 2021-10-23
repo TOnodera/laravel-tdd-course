@@ -2,17 +2,16 @@
 
 @section('content')
 
-<h1>ユーザー登録</h1>
+<h1>ログイン画面</h1>
 
 <form method="post">
     @csrf
     @include('inc.error')
+    @include('inc.status')
 
-    名前: <input type="text" name="name" value="{{ old('name') }}"/>
     メールアドレス: <input type="text" name="email" value="{{ old('email') }}"/>
     パスワード: <input type="password" name="password"/>
-    
+
     <input type="submit" value="送信する" />
 </form> 
-
 @endsection
