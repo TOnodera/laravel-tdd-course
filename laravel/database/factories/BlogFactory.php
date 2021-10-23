@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Database\Factories;
 
 use App\Models\Blog;
+use App\Models\Comment;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -47,6 +48,18 @@ class BlogFactory extends Factory
             return [
                 'status' => Blog::CLOSED
             ];
+        });
+    }
+
+    public function withCommentsData(array $comments)
+    {
+        return $this->afterCreating(function (Blog $blog) use ($comments) {
+            foreach ($comments as $comment) {
+                Comment::factory()->create(array_merge(
+                    $comment,
+                    ['blog_id'=>$blog->id]
+                ));
+            }
         });
     }
 }

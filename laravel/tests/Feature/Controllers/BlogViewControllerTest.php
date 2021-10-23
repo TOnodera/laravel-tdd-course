@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Feature\Controllers;
 
 use App\Models\Blog;
+use App\Models\Comment;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -58,14 +59,20 @@ final class BlogViewControllerTest extends TestCase
         ;
     }
 
-    public function testブログの詳細画面を表示出来る()
+    public function testブログの詳細画面を表示出来て、コメントが古い順に表示される()
     {
-        $blog = Blog::factory()->create();
+        $blog = Blog::factory()->withCommentsData([
+            ['created_at' => now()->sub('2 days'),'name' => '太郎'],
+            ['created_at' => now()->sub('3 days'),'name' => '次郎'],
+            ['created_at' => now()->sub('1 days'),'name' => '三郎'],
+        ])->create();
+
 
         $this->get('blogs/'.$blog->id)
             ->assertOk()
             ->assertSee($blog->title)
-            ->assertSee($blog->user->name);
+            ->assertSee($blog->user->name)
+            ->assertSeeInOrder(['次郎','太郎','三郎']);
     }
 
     public function testブログで非公開のものは、詳細画面は表示できない()
