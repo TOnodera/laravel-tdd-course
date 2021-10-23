@@ -28,7 +28,7 @@ class SignUpControllerTest extends TestCase
 
         $validData = User::factory()->validData();
 
-        $this->post('signup', $validData)->assertOk();
+        $this->post('signup', $validData)->assertRedirect('mypage/blogs');
         unset($validData['password']);
         $this->assertDatabaseHas('users', $validData);
 
@@ -36,6 +36,9 @@ class SignUpControllerTest extends TestCase
         $user = User::firstWhere($validData);
         $this->assertNotNull($user);
         $this->assertTrue(Hash::check('abcd1234', $user->password));
+
+        //ログイン確認
+        $this->assertAuthenticatedAs($user);
     }
 
     public function test不正なデータではユーザー登録出来ない()
