@@ -4,7 +4,6 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Hash;
 use Tests\TestCase;
 
@@ -42,8 +41,9 @@ class SignUpControllerTest extends TestCase
     public function test不正なデータではユーザー登録出来ない()
     {
         $url = 'signup';
-        // $this->post($url, [])
-        //     ->assertRedirect();
+
+        $this->from($url)->post($url, [])
+             ->assertRedirect($url);
 
         $this->post($url, ['name'=>''])->assertSessionHasErrors(['name'=>'名前は必ず指定してください。']);
         $this->post($url, ['name'=>str_repeat('a', 21)])->assertSessionHasErrors(['name' => '名前は、20文字以下で指定してください。']);
