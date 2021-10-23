@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests\Feature\Controllers;
 
 use App\Models\Blog;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -72,5 +73,20 @@ final class BlogViewControllerTest extends TestCase
         $blog = Blog::factory()->closed()->create();
         $this->get('blogs/'.$blog->id)
             ->assertForbidden();
+    }
+
+    public function testクリスマスの日は、メリークリスマスと表示される()
+    {
+        $blog = Blog::factory()->create();
+
+        Carbon::setTestNow('2021-12-24');
+        $this->get('blogs/'.$blog->id)
+            ->assertOk()
+            ->assertDontSee('メリークリスマス');
+
+        Carbon::setTestNow('2021-12-25');
+        $this->get('blogs/'.$blog->id)
+            ->assertOk()
+            ->assertDontSee('メリークリスマス');
     }
 }
