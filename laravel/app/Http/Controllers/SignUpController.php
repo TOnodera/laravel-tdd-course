@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Models\User;
@@ -15,15 +17,15 @@ class SignUpController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'name'=>['required','max:20'],
-            'email'=>['required','email:filter','unique:users'],
-            'password' => ['required','min:8']
+            'name' => ['required', 'max:20'],
+            'email' => ['required', 'email:filter', 'unique:users'],
+            'password' => ['required', 'min:8'],
         ]);
 
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => bcrypt($data['password'])
+            'password' => bcrypt($data['password']),
         ]);
 
         auth()->login($user);

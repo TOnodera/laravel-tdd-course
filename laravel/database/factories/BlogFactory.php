@@ -46,7 +46,7 @@ class BlogFactory extends Factory
     {
         return $this->state(function (array $attributes) {
             return [
-                'status' => Blog::CLOSED
+                'status' => Blog::CLOSED,
             ];
         });
     }
@@ -57,7 +57,7 @@ class BlogFactory extends Factory
             foreach ($comments as $comment) {
                 Comment::factory()->create(array_merge(
                     $comment,
-                    ['blog_id'=>$blog->id]
+                    ['blog_id' => $blog->id]
                 ));
             }
         });

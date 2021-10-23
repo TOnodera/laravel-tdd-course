@@ -20,6 +20,7 @@ class BlogViewController extends Controller
         if ($blog->isClosed()) {
             abort(403);
         }
+
         return view('blog.show', compact('blog'));
     }
 }
