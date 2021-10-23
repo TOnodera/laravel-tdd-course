@@ -9,12 +9,11 @@ use Tests\TestCase;
 /**
  * @internal
  * @coversNothing
+ *
+ * @see App\Http\Controllers\MyPage\UserLoginController
  */
 final class UserLoginControllerTest extends TestCase
 {
-    /**
-     * @see App\Http\Controllers\MyPage\UserLoginController
-     */
     public function testログイン画面を開ける()
     {
         $this->get('mypage/login')->assertOk();
