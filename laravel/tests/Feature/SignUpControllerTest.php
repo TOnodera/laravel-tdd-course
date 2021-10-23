@@ -27,11 +27,7 @@ class SignUpControllerTest extends TestCase
         //DBに保存
         //ログインさせてからマイページにリダイレクト
 
-        $validData  = [
-            'name' => '太郎',
-            'email' => 'aaa@bbb.net',
-            'password' => 'abcd1234'
-        ];
+        $validData = User::factory()->validData();
 
         $this->post('signup', $validData)->assertOk();
         unset($validData['password']);
