@@ -31,6 +31,6 @@ class Blog extends Model
 
     public function isClosed()
     {
-        return self::CLOSED === $this->status;
+        return self::CLOSED === (int) $this->status;
     }
 }

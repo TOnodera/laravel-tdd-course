@@ -30,3 +30,4 @@ Route::post('signup/', [SignUpController::class, 'store']);
 
 //ログインページ
 Route::get('mypage/login', [UserLoginController::class, 'index']);
+Route::post('mypage/login', [UserLoginController::class, 'login']);

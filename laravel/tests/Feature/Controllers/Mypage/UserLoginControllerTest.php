@@ -18,4 +18,18 @@ final class UserLoginControllerTest extends TestCase
     {
         $this->get('mypage/login')->assertOk();
     }
+
+    public function testログイン時の入力チェック()
+    {
+        $url = 'mypage/login';
+        // $this->from($url)->post($url, [])->assertRedirect($url);
+
+        app()->setLocale('testing'); //　テスト用ロケール
+
+        $this->post($url, ['email'=>''])->assertSessionHasErrors(['email'=>'required']);
+        $this->post($url, ['email'=>'aa@bb@cc'])->assertSessionHasErrors(['email'=>'email']);
+        $this->post($url, ['email'=>'aa@ああ.こむ'])->assertSessionHasErrors(['email'=>'email']);
+
+        $this->post($url, ['password'=>''])->assertSessionHasErrors(['password'=>'required']);
+    }
 }
