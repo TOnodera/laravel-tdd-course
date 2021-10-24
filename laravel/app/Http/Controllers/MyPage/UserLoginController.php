@@ -28,4 +28,13 @@ class UserLoginController extends Controller
 
         return redirect('mypage/blogs');
     }
+
+    public function logout(Request $request)
+    {
+        auth()->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('mypage/login')->with('status', 'ログアウトしました。');
+    }
 }

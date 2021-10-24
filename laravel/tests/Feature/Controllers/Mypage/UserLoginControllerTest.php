@@ -138,4 +138,15 @@ final class UserLoginControllerTest extends TestCase
             static::fail('ValidationExceptionの例外が発生しました。');
         }
     }
+
+    public function testログアウトできる()
+    {
+        $this->login();
+        $this->post('mypage/logout')
+            ->assertRedirect('mypage/login')
+        ;
+
+        $this->get('mypage/login')->assertSee('ログアウトしました。');
+        $this->assertGuest();
+    }
 }
