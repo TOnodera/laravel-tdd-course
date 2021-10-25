@@ -27,6 +27,7 @@ final class BlogMypageControllerTest extends TestCase
         $this->get('mypage/blogs/create')->assertRedirect($url);
         $this->post('mypage/blogs/create', [])->assertRedirect($url);
         $this->get('mypage/blogs/edit/1')->assertRedirect($url);
+        $this->post('mypage/blogs/edit/1')->assertRedirect($url);
     }
 
     public function testマイページブログ一覧で自分のデータのみ表示される()
@@ -113,5 +114,30 @@ final class BlogMypageControllerTest extends TestCase
         $this->get('mypage/blogs/edit/'.$blog->id)
             ->assertOk()
         ;
+    }
+
+    public function test自分のブログは更新できる()
+    {
+        $validData = [
+            'title' => '新タイトル',
+            'body' => '新本文',
+            'status' => '1'
+        ];
+
+        $this->withoutExceptionHandling();
+        $blog = Blog::factory()->create();
+        $this->login($blog->user);
+        $this->post('mypage/blogs/edit/'.$blog->id, $validData)
+            ->assertRedirect('mypage/blogs/edit/'.$blog->id);
+
+        $this->get('mypage/blogs/edit/'.$blog->id)
+            ->assertSee('ブログを更新しました。');
+
+        $this->assertDatabaseHas('blogs', $validData);
+        $this->assertCount(1, Blog::all());
+
+        $blog->refresh();
+        $this->assertEquals('新タイトル', $blog->title);
+        $this->assertEquals('新本文', $blog->body);
     }
 }

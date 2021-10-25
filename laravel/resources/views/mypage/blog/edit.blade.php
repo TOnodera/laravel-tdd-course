@@ -9,6 +9,7 @@
 
 <form method="post">
 @include('inc.error')
+@include('inc.status')
 
 <div>タイトル: <input type="text" style="width: 400px" value="{{ data_get($data,'title')}}" /></div>
 <div>本文: <textarea name="body" style="width: 600px;height: 200px;">{{ data_get($data,'body') }}</textarea></div>
