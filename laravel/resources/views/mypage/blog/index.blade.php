@@ -13,7 +13,7 @@
         <th>ブログ名</th>
     </tr>
     @foreach($blogs as $blog)
-        <td>{{ $blog->title }}</td>
+        <td><a href='{{ route('mypage.blog.edit',$blog->id) }}'>{{ $blog->title }}</a></td>
     @endforeach
 </table>
 

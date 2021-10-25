@@ -26,6 +26,7 @@ final class BlogMypageControllerTest extends TestCase
         ;
         $this->get('mypage/blogs/create')->assertRedirect($url);
         $this->post('mypage/blogs/create', [])->assertRedirect($url);
+        $this->get('mypage/blogs/edit/1')->assertRedirect($url);
     }
 
     public function testマイページブログ一覧で自分のデータのみ表示される()
@@ -89,5 +90,28 @@ final class BlogMypageControllerTest extends TestCase
         $this->post($url, ['title' => str_repeat('a', 255)])->assertSessionDoesntHaveErrors(['title' => 'max']);
 
         $this->post($url, ['body' => ''])->assertSessionHasErrors(['body' => 'required']);
+    }
+
+    public function test他人様のブログの編集画面は開けない()
+    {
+        $blog = Blog::factory()->create();
+        $this->login();
+        $this->get('mypage/blogs/edit/'.$blog->id)
+            ->assertForbidden()
+        ;
+    }
+
+    public function test他人様のブログを削除できない()
+    {
+        static::markTestIncomplete('まだ');
+    }
+
+    public function test自分のブログの編集画面は開ける()
+    {
+        $blog = Blog::factory()->create();
+        $this->login($blog->user);
+        $this->get('mypage/blogs/edit/'.$blog->id)
+            ->assertOk()
+        ;
     }
 }
