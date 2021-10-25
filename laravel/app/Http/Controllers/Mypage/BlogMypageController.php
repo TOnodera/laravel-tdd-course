@@ -25,7 +25,11 @@ class BlogMypageController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->all(['title', 'body']);
+        $data = $request->validate([
+            'title' => 'required|max:255',
+            'body' => 'required',
+        ]);
+
         $data['status'] = $request->boolean('status');
         $blog = auth()->user()->blogs()->create($data);
 
