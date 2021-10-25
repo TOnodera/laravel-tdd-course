@@ -7,4 +7,14 @@
 <a href='/mypage/blogs/create'>ブログ新規作成</a>
 <hr />
 
+
+<table>
+    <tr>
+        <th>ブログ名</th>
+    </tr>
+    @foreach($blogs as $blog)
+        <td>{{ $blog->title }}</td>
+    @endforeach
+</table>
+
 @endsection
