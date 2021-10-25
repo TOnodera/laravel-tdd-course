@@ -24,6 +24,7 @@ final class BlogMypageControllerTest extends TestCase
         $this->get('mypage/blogs')
             ->assertRedirect('mypage/login')
         ;
+        $this->get('mypage/blogs/create')->assertRedirect($url);
     }
 
     public function testマイページブログ一覧で自分のデータのみ表示される()
@@ -39,6 +40,14 @@ final class BlogMypageControllerTest extends TestCase
             ->assertOk()
             ->assertDontSee($other->title)
             ->assertSee($myblog->title)
+        ;
+    }
+
+    public function testマイページ、ブログの新規登録画面を開ける()
+    {
+        $this->login();
+        $this->get('mypage/blogs/create')
+            ->assertOk()
         ;
     }
 }
