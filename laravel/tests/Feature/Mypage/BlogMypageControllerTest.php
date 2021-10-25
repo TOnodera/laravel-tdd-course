@@ -142,4 +142,26 @@ final class BlogMypageControllerTest extends TestCase
         static::assertSame('新タイトル', $blog->title);
         static::assertSame('新本文', $blog->body);
     }
+
+    public function test他人様のブログは更新できない()
+    {
+        $validData = [
+            'title' => '新タイトル',
+            'body' => '新本文',
+            'status' => '1',
+        ];
+
+        //$this->withoutExceptionHandling();
+        $blog = Blog::factory()->create();
+        $this->login();
+
+        $this->get('mypage/blogs/edit/'.$blog->id, $validData)
+            ->assertForbidden()
+        ;
+
+        // $this->assertDatabaseMissing('blogs', $validData);
+
+        static::assertCount(1, Blog::all());
+        static::assertSame($blog->toArray(), Blog::first()->toArray());
+    }
 }
