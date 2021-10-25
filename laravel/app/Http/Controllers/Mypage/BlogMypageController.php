@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Mypage;
 
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
+use Illuminate\Http\Request;
 
 class BlogMypageController extends Controller
 {
@@ -20,5 +21,14 @@ class BlogMypageController extends Controller
     public function create()
     {
         return view('mypage.blog.create');
+    }
+
+    public function store(Request $request)
+    {
+        $data = $request->all(['title', 'body']);
+        $data['status'] = $request->boolean('status');
+        $blog = auth()->user()->blogs()->create($data);
+
+        return redirect('mypage/blogs/edit/'.$blog->id);
     }
 }
