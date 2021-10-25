@@ -45,6 +45,10 @@ class BlogMypageController extends Controller
     public function update(Request $request, Blog $blog)
     {
         // 所有者チェック
+        if ($request->user()->isNot($blog->user)) {
+            abort(403);
+        }
+
         $data = $this->validateInput();
         $data['status'] = $request->boolean('status');
 
