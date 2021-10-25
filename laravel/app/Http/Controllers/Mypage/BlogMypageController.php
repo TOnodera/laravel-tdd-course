@@ -51,7 +51,8 @@ class BlogMypageController extends Controller
         $blog->update($data);
 
         return redirect(route('mypage.blog.edit', $blog))
-            ->with('status', 'ブログを更新しました。');
+            ->with('status', 'ブログを更新しました。')
+        ;
     }
 
     private function validateInput()

@@ -121,23 +121,25 @@ final class BlogMypageControllerTest extends TestCase
         $validData = [
             'title' => '新タイトル',
             'body' => '新本文',
-            'status' => '1'
+            'status' => '1',
         ];
 
         $this->withoutExceptionHandling();
         $blog = Blog::factory()->create();
         $this->login($blog->user);
         $this->post('mypage/blogs/edit/'.$blog->id, $validData)
-            ->assertRedirect('mypage/blogs/edit/'.$blog->id);
+            ->assertRedirect('mypage/blogs/edit/'.$blog->id)
+        ;
 
         $this->get('mypage/blogs/edit/'.$blog->id)
-            ->assertSee('ブログを更新しました。');
+            ->assertSee('ブログを更新しました。')
+        ;
 
         $this->assertDatabaseHas('blogs', $validData);
-        $this->assertCount(1, Blog::all());
+        static::assertCount(1, Blog::all());
 
         $blog->refresh();
-        $this->assertEquals('新タイトル', $blog->title);
-        $this->assertEquals('新本文', $blog->body);
+        static::assertSame('新タイトル', $blog->title);
+        static::assertSame('新本文', $blog->body);
     }
 }
