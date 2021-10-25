@@ -28,6 +28,7 @@ final class BlogMypageControllerTest extends TestCase
         $this->post('mypage/blogs/create', [])->assertRedirect($url);
         $this->get('mypage/blogs/edit/1')->assertRedirect($url);
         $this->post('mypage/blogs/edit/1')->assertRedirect($url);
+        $this->delete('mypage/blogs/delete/1')->assertRedirect($url);
     }
 
     public function testマイページブログ一覧で自分のデータのみ表示される()
@@ -102,9 +103,22 @@ final class BlogMypageControllerTest extends TestCase
         ;
     }
 
+    public function test自分のブログは削除できる()
+    {
+        $blog = Blog::factory()->create();
+        $this->login($blog->user);
+        $this->delete('mypage/blogs/delete/'.$blog->id)
+            ->assertRedirect('mypage/blogs');
+        $this->assertDeleted($blog);
+    }
+
     public function test他人様のブログを削除できない()
     {
-        static::markTestIncomplete('まだ');
+        $this->login();
+        $blog = Blog::factory()->create();
+        $this->delete('mypage/blogs/delete/'.$blog->id)
+            ->assertForbidden();
+        $this->assertCount(1, Blog::all());
     }
 
     public function test自分のブログの編集画面は開ける()
@@ -162,6 +176,6 @@ final class BlogMypageControllerTest extends TestCase
         // $this->assertDatabaseMissing('blogs', $validData);
 
         static::assertCount(1, Blog::all());
-        static::assertSame($blog->toArray(), Blog::first()->toArray());
+        static::assertEquals($blog->toArray(), Blog::first()->toArray());
     }
 }

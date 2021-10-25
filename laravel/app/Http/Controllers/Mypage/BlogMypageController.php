@@ -59,6 +59,15 @@ class BlogMypageController extends Controller
         ;
     }
 
+    public function destroy(Request $request, Blog $blog)
+    {
+        if ($request->user()->isNot($blog->user)) {
+            abort(403);
+        }
+        $blog->delete();
+        return redirect('mypage/blogs');
+    }
+
     private function validateInput()
     {
         return request()->validate([
