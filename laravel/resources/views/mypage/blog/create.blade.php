@@ -7,7 +7,7 @@
 <a href='/mypage/blogs/create'>ブログ新規作成</a>
 <hr />
 
-<form action="/mapage/blogs" method="post">
+<form method="post">
 @include('inc.error')
 
 <div>タイトル: <input type="text" style="width: 400px" value="{{ old('title')}}" /></div>
@@ -15,7 +15,7 @@
 <div>
 公開する: 
 <label>
-    <input type="checkbox" name="published" value="1" {{ old('published') ? 'checked': ''}}>
+    <input type="checkbox" name="status" value="1" {{ old('status') ? 'checked': ''}}>
     公開する
 </label>
 </div>

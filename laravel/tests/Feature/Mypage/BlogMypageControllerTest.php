@@ -25,6 +25,7 @@ final class BlogMypageControllerTest extends TestCase
             ->assertRedirect('mypage/login')
         ;
         $this->get('mypage/blogs/create')->assertRedirect($url);
+        $this->post('mypage/blogs/create', [])->assertRedirect($url);
     }
 
     public function testマイページブログ一覧で自分のデータのみ表示される()
@@ -49,5 +50,29 @@ final class BlogMypageControllerTest extends TestCase
         $this->get('mypage/blogs/create')
             ->assertOk()
         ;
+    }
+
+    public function testマイページ、ブログを新規登録できる、公開の場合()
+    {
+        $this->login();
+        $validData = Blog::factory()->validData();
+        $this->post('mypage/blogs/create', $validData)
+            ->assertRedirect('mypage/blogs/edit/1')
+        ;
+
+        $this->assertDatabaseHas('blogs', $validData);
+    }
+
+    public function testマイページ、ブログを新規登録できる、非公開の場合()
+    {
+        $this->login();
+        $validData = Blog::factory()->validData();
+        unset($validData['status']);
+        $this->post('mypage/blogs/create', $validData)
+            ->assertRedirect('mypage/blogs/edit/1')
+        ;
+
+        $validData['status'] = 0;
+        $this->assertDatabaseHas('blogs', $validData);
     }
 }

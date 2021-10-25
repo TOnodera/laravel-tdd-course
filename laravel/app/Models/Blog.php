@@ -14,6 +14,8 @@ class Blog extends Model
     public const OPEN = 1;
     public const CLOSED = 0;
 
+    protected $guarded = [];
+
     public function user()
     {
         return $this->belongsTo(User::class);
