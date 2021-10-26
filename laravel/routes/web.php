@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [BlogViewController::class, 'index']);
 
 //ブログページ
-Route::get('blogs/{blog}', [BlogViewController::class, 'show']);
+Route::get('blogs/{blog}', [BlogViewController::class, 'show'])->middleware('blog.show.limit');
 
 //ユーザー登録
 Route::get('signup/', [SignUpController::class, 'index']);
