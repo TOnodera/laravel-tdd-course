@@ -8,6 +8,7 @@ use App\Models\Blog;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use Facades\Illuminate\Support\Str;
 
 /**
  * @internal
@@ -96,6 +97,21 @@ final class BlogViewControllerTest extends TestCase
         $this->get('blogs/'.$blog->id)
             ->assertOk()
             ->assertDontSee('メリークリスマス')
+        ;
+    }
+
+    public function testブログの詳細画面でランダムな文字列が１０文字表示される()
+    {
+        $blog = Blog::factory()->create();
+
+        Str::shouldReceive('random')
+            ->once()
+            ->with(10)
+            ->andReturn('HELLO_RAND');
+
+        $this->get('blogs/'.$blog->id)
+            ->assertOk()
+            ->assertSee('HELLO_RAND')
         ;
     }
 }
