@@ -65,6 +65,7 @@ class BlogMypageController extends Controller
             abort(403);
         }
         $blog->delete();
+
         return redirect('mypage/blogs');
     }
 

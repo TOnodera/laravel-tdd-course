@@ -112,7 +112,7 @@ final class UserLoginControllerTest extends TestCase
             $this->post('mypage/login', $postData);
             static::fail('ValidationExceptionの例外が発生しませんでした。');
         } catch (ValidationException $e) {
-            static::assertSame('メールアドレスかパスワードが間違っています。', $e->errors()['email'][0]);
+            static::assertEquals('メールアドレスかパスワードが間違っています。', $e->errors()['email'][0]);
         }
     }
 

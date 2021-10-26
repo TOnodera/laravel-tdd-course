@@ -108,7 +108,8 @@ final class BlogMypageControllerTest extends TestCase
         $blog = Blog::factory()->create();
         $this->login($blog->user);
         $this->delete('mypage/blogs/delete/'.$blog->id)
-            ->assertRedirect('mypage/blogs');
+            ->assertRedirect('mypage/blogs')
+        ;
         $this->assertDeleted($blog);
     }
 
@@ -117,8 +118,9 @@ final class BlogMypageControllerTest extends TestCase
         $this->login();
         $blog = Blog::factory()->create();
         $this->delete('mypage/blogs/delete/'.$blog->id)
-            ->assertForbidden();
-        $this->assertCount(1, Blog::all());
+            ->assertForbidden()
+        ;
+        static::assertCount(1, Blog::all());
     }
 
     public function test自分のブログの編集画面は開ける()
@@ -153,8 +155,8 @@ final class BlogMypageControllerTest extends TestCase
         static::assertCount(1, Blog::all());
 
         $blog->refresh();
-        static::assertSame('新タイトル', $blog->title);
-        static::assertSame('新本文', $blog->body);
+        static::assertEquals('新タイトル', $blog->title);
+        static::assertEquals('新本文', $blog->body);
     }
 
     public function test他人様のブログは更新できない()
