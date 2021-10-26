@@ -8,7 +8,8 @@ use App\Models\Blog;
 use Carbon\Carbon;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-use Facades\Illuminate\Support\Str;
+use App\StrRandom;
+use Mockery;
 
 /**
  * @internal
@@ -104,10 +105,29 @@ final class BlogViewControllerTest extends TestCase
     {
         $blog = Blog::factory()->create();
 
-        Str::shouldReceive('random')
-            ->once()
-            ->with(10)
-            ->andReturn('HELLO_RAND');
+        // Str::shouldReceive('random')
+        //     ->once()
+        //     ->with(10)
+        //     ->andReturn('HELLO_RAND');
+
+        //$mock = new class() {
+        //    public function random(int $len)
+        //    {
+        //        if ($len !== 10) {
+        //            throw new \Exception('引数、ちがうよ');
+        //        }
+        //        return 'HELLO_RAND';
+        //    }
+        //};
+        //$this->app->instance(StrRandom::class, $mock);
+
+        //$mock = Mockery::mock(StrRandom::class);
+        //$mock->shouldReceive('random')->once()->with(10)->andReturn('HELLO_RAND');
+        //$this->app->instance(StrRandom::class, $mock);
+
+        $this->mock(StrRandom::class, function ($mock) {
+            $mock->shouldReceive('random')->once()->with(10)->andReturn('HELLO_RAND');
+        });
 
         $this->get('blogs/'.$blog->id)
             ->assertOk()
