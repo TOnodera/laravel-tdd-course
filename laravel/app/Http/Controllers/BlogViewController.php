@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use Facades\Illuminate\Support\Str;
 use App\Models\Blog;
+
+//use Illuminate\Support\Str;
 
 class BlogViewController extends Controller
 {
@@ -21,6 +24,8 @@ class BlogViewController extends Controller
             abort(403);
         }
 
-        return view('blog.show', compact('blog'));
+        $random = Str::random(10);
+
+        return view('blog.show', compact('blog', 'random'));
     }
 }
