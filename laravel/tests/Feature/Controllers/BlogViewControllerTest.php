@@ -19,9 +19,9 @@ class BlogViewControllerTest extends TestCase
         $blog2 = Blog::factory()->create();
         $blog3 = Blog::factory()->create();
 
-
         $this
             ->get('/')
+            ->assertViewIs('index')
             ->assertOk()
             ->assertSee($blog1->title)
             ->assertSee($blog2->title)
