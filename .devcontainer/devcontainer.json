@@ -23,7 +23,7 @@
       		"editor.defaultFormatter": "junstyle.php-cs-fixer"
     	},
 		//インテリセンス
-		"php.executablePath": "/usr/local/bin/php",
+		"php.executablePath": "/home/www-data/app/laravel/vendor/bin/php-cs-fixer",
 		//名前解決系
 		"namespaceResolver.exclude": "{**/node_modules/**}",
 		"namespaceResolver.showMessageOnStatusBar": true,  // Show message on status bar instead of notification box
