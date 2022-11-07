@@ -6,7 +6,7 @@
 
 <ul>
     @foreach($blogs as $blog)
-        <li><a href='/blogs/{{$blog->id}}'>{{ $blog->title }}</a></li>
+        <li><a href='/blogs/{{$blog->id}}'>{{ $blog->title }} {{$blog->user->name}}</a></li>
     @endforeach
 </ul>
 

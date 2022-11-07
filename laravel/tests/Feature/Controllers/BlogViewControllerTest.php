@@ -25,6 +25,9 @@ class BlogViewControllerTest extends TestCase
             ->assertOk()
             ->assertSee($blog1->title)
             ->assertSee($blog2->title)
-            ->assertSee($blog3->title);
+            ->assertSee($blog3->title)
+            ->assertSee($blog1->user->name)
+            ->assertSee($blog2->user->name)
+            ->assertSee($blog3->user->name);
     }
 }
